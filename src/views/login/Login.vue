@@ -27,15 +27,26 @@
             <div class="login-box-from">
                 <el-form :model="loginForm" :rules="rules" ref="loginForm"  class="demo-ruleForm">
                     <el-form-item prop="username">
-                        <el-input v-model="loginForm.username" placeholder="请输入用户名" size="medium">
+                        <el-input  class="el-input-username" v-model="loginForm.username" placeholder="请输入用户名" size="medium">
                             <el-button slot="prepend" icon="el-icon-user"></el-button>
                         </el-input>
                     </el-form-item>
-                    <el-form-item prop="password">
-                        <el-input v-model="loginForm.password"  placeholder="请输入密码" size="medium">
+                    <el-form-item v-if="visible" prop="password">
+                        <el-input v-model="loginForm.password" type=password auto-complete="off" placeholder="请输入密码" size="medium"  @keyup.enter.native='handleLogin' prefix-icon="iconfont icon-3702mima">
                             <el-button slot="prepend" icon="el-icon-key"></el-button>
+                            <i slot="suffix" title="显示密码" @click="changePass('show')" style="cursor:pointer;"
+                       class="el-input__icon iconfont el-icon-open"></i>
                         </el-input>
                     </el-form-item>
+
+                    <el-form-item v-else prop="password">
+                        <el-input v-model="loginForm.password" type=text placeholder="请输入密码" size="medium">
+                            <el-button slot="prepend" icon="el-icon-key"></el-button>
+                            <i slot="suffix" title="隐藏密码" @click="changePass('hide')" style="cursor:pointer;"
+                       class="el-input__icon iconfont el-icon-turn-off"></i>
+                        </el-input>
+                    </el-form-item>
+
                     <el-form-item>
                         <el-button type="primary" size="medium" :loading="loading" style="width:100%" @click="submitForm('loginForm')">立即登陆</el-button>
                     </el-form-item>
@@ -64,8 +75,11 @@ export default {
             loading: false, //登陆状态
             loginForm:{  // 登陆表单
                 username: 'admin',
-                password: '123456'
+                password: '123456',
+                manage_username:'admin',
+                manage_password:'123456',
             },
+            visible:true,
             rules:{  //登陆验证规则
                 username:[
                     { required: true, message: '请输入用户名', trigger: 'blur' },
@@ -85,13 +99,22 @@ export default {
             this.$refs[formName].validate((valid) => {
                 if (valid) {
                     this.loading = true
-                    this.login()
+                    if(formName.username==formName.manage_username&&formName.password==formName.manage_password)
+                    {
+                        this.login()
+                    }
+                    else{
+                        alert('密码或账号错误');
+                    }
                 } else {
                     // console.log('error submit!!');
                     return false;
                 }
             });
         },
+        changePass(){
+        this.visible=!this.visible
+      },
         login(){
             this.$store
                 .dispatch('user/login',{username: this.loginForm.username})
@@ -157,4 +180,11 @@ export default {
     padding: 30px;
     box-sizing: border-box;
 }
+.el-input-username.el-input__inner{
+    padding: 30px;
+}
+.el-input  >>> .el-input__inner {
+    padding-left: 15px;
+}
+
 </style>

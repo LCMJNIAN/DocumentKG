@@ -1,319 +1,441 @@
 <template>
-    <div class="index">
-        <!-- 头部 -->
-        <div class="index-head">
-            <div class="index-head-title">
-                工作台
-            </div>
-            <el-row>
-                <el-col  :xs="24" :sm="24" :md="14" :lg="12" :xl="12">
-                    <div class="index-head-centent-left">
-                        <el-avatar style="margin-right: 10px;" :size="56" :src="circleUrl"></el-avatar>
-                        <div class="index-head-centent-left-text">
-                            <p>早上好,admin,祝你新的一天工作愉快</p>
-                            <p>今天小雨转阴天,21~27°,天凉,注意加衣</p>
-                        </div>
-                    </div>
-                </el-col>
-                <el-col  :xs="24" :sm="24" :md="10" :lg="12" :xl="12">
-                    <div class="index-head-centent-right">
-                        <div class="index-head-centent-right-list">
-                            <div class="index-head-centent-right-list-icon">
-                                <daiban style="color: #FD7F07; background: #FBEEE1;" class="index-head-centent-right-list-icon-is"  /> 代办事项
-                            </div>
-                            <div class="index-head-centent-right-list-text">
-                                3 &nbsp;&nbsp;/&nbsp;&nbsp; 26
-                            </div>
-                        </div>
-                        <div class="index-head-centent-right-list">
-                            <div class="index-head-centent-right-list-icon">
-                                <github style="color: #2294FC; background: #DDEDFD;" class="index-head-centent-right-list-icon-is"  /> 开源项目
-                            </div>
-                            <div class="index-head-centent-right-list-text">
-                                7
-                            </div>
-                        </div>
-                        <div class="index-head-centent-right-list">
-                            <div class="index-head-centent-right-list-icon">
-                                <daiban class="index-head-centent-right-list-icon-is"  /> 代办事项
-                            </div>
-                            <div class="index-head-centent-right-list-text">
-                                3 &nbsp;&nbsp;/&nbsp;&nbsp; 26
-                            </div>
-                        </div>
-                    </div>
-                </el-col>
-            </el-row>
-        </div>
+    <div class="monitor">
         <!-- 图标 -->
-        <div class="index-centent">
-            <el-row :gutter="20">
-                <el-col :xs="24" :sm="24" :md="24" :lg="16" :xl="16">
-                    <!-- 项目 -->
-                    <div class="grid-content">
-                        <div class="index-centent-title">
-                            <div class="index-centent-title-left">
-                                <sort class="index-centent-title-left-icon" />
-                                我的项目
-                            </div>
-                            <div class="index-centent-title-right">
-                                全部项目
+        <el-row :gutter="20" class="monitor-header">
+            <el-col :xs="24" :sm="24" :md="14" :lg="18" :xl="18">
+                <el-row class="monitor-cart-box" :gutter="20">
+                    <el-col :span="24">
+                        <div class="monitor-cart-name">
+                            <div class="monitor-cart-name-left">
+                                <div class="monitor-cart-name-left-icon">
+                                    <Count class="monitor-cart-name-left-icon-s" />
+                                </div>
+                                统计数据
                             </div>
                         </div>
-                        <div class="index-centent-box">
-                            <Project />
-                        </div>
-                    </div>
-                    <!-- 动态 -->
-                    <div class="grid-content">
-                        <div class="index-centent-title">
-                            <div class="index-centent-title-left">
-                                <dynamic class="index-centent-title-left-icontwo" />
-                                动态
+                    </el-col>
+                    <el-col :xs="12" :sm="12" :md="12" :lg="8" :xl="6">
+                        <Monitorcar name='日期跨度天数' :number='782' color='rgb(255, 163, 51)' icon='ViewsSvg' />
+                    </el-col>
+                    <el-col :xs="12" :sm="12" :md="12" :lg="8" :xl="6">
+                        <Monitorcar name='公文数' :number='1335' color='rgb(174, 215, 91)' icon='OrderSvg' />
+                    </el-col>
+                    <el-col :xs="12" :sm="12" :md="12" :lg="8" :xl="6">
+                        <Monitorcar name='用户数' :number='1' color='rgb(65, 171, 211)' icon='RegistrationSvg' />
+                    </el-col>
+                </el-row>
+            </el-col>
+        </el-row>
+        <!-- 图标二 -->
+        <el-row :gutter="20">
+            <el-col :xs="24" :sm="24" :md="13" :lg="17" :xl="17">
+                <el-row class="monitor-header-three" :gutter="20">
+                    <el-col :span="24">
+                        <div class="monitor-cart-name">
+                            <div class="monitor-cart-name-left">
+                                <div class="monitor-cart-name-left-icon">
+                                    <Visitors class="monitor-cart-name-left-icon-s" />
+                                </div>
+                                业务公文统计
                             </div>
-                            <div class="index-centent-title-right">
-                                全部动态
-                            </div>
+                            
                         </div>
-                        <div class="index-centent-box">
-                            <DynamicBox />
-                        </div>
-                    </div>
-                </el-col>
-                <el-col :xs="24" :sm="24" :md="24" :lg="8" :xl="8">
-                    <div class="grid-content">
-                        <div class="index-centent-title">
-                            <div class="index-centent-title-left">
-                                <operating class="index-centent-title-left-iconthree" />
-                                快捷操作
+                    </el-col>
+                    <el-col :span="24">
+                       <div class="monitor-visitors monitor-visitors-scale">
+                            <div class="monitor-visitors-left">
+                                <ve-ring :data="scaleData_two" :colors="colors_two"></ve-ring>
                             </div>
-                            <div class="index-centent-title-right">
-                                <!-- 全部动态 -->
-                            </div>
-                        </div>
-                         <div class="index-centent-box">
-                            <Fast />
-                        </div>
-                    </div>
-                    <div class="grid-content">
-                        <div class="index-centent-title">
-                            <div class="index-centent-title-left">
-                                <group class="index-centent-title-left-iconfour" />
-                                部门成员 (6)
-                            </div>
-                            <div class="index-centent-title-right">
-                                <!-- 全部动态 -->
+                            <div class="monitor-visitors-right">
+                                <div class="monitor-visitors-right-list" v-for="(item,index) in colors_two" :key="index">
+                                    <CircleSvg class="monitor-visitors-right-list-icon" :style="{color: item}"></CircleSvg>
+                                    <div class="monitor-visitors-right-list-name">{{scaleData_two.rows[index]['类目']}}</div>
+                                    <div class="monitor-visitors-right-list-number"> {{scaleData_two.rows[index]['数量']}}</div>
+                                </div>
                             </div>
                         </div>
-                         <div class="index-centent-box">
-                            <Colleague />
+                    </el-col>
+                </el-row>
+                <el-row class="monitor-header-two" :gutter="20">
+                    <el-col :span="24">
+                        <div class="monitor-cart-name">
+                            <div class="monitor-cart-name-left">
+                                <div class="monitor-cart-name-left-icon">
+                                    <Visitors class="monitor-cart-name-left-icon-s" />
+                                </div>
+                                通用公文统计
+                            </div>
+                            
                         </div>
-                    </div>
-                </el-col>
-            </el-row>
-        </div>
+                    </el-col>
+                    <el-col :span="24">
+                        <div class="monitor-visitors monitor-visitors-scale">
+                            <div class="monitor-visitors-left">
+                                <ve-ring :data="scaleData" :colors="colors"></ve-ring>
+                            </div>
+                            <div class="monitor-visitors-right">
+                                <div class="monitor-visitors-right-list" v-for="(item,index) in colors" :key="index">
+                                    <CircleSvg class="monitor-visitors-right-list-icon" :style="{color: item}"></CircleSvg>
+                                    <div class="monitor-visitors-right-list-name">{{scaleData.rows[index]['类目']}}</div>
+                                    <div class="monitor-visitors-right-list-number"> {{scaleData.rows[index]['数量']}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </el-col>
+                </el-row>
+            </el-col> 
+        </el-row>       
     </div>
 </template>
 
 <script>
-import daiban from '@/assets/icon/daiban.svg'
-import github from '@/assets/icon/github.svg'
-import sort from '@/assets/icon/sort.svg'
-import dynamic from '@/assets/icon/dynamic.svg'
-import operating from '@/assets/icon/operating.svg'
-import group from '@/assets/icon/group.svg'
-import Project from '@/components/Index/project' // 项目
-import DynamicBox from '@/components/Index/dynamicBox' //动态
-import Fast from '../../components/Index/fast' //快捷操作
-import Colleague from '../../components/Index/colleague'
+import Monitorcar from '../../components/analyze/monitorcar'
+import Count from '../../assets/icon/count.svg'
+import Visitors from '../../assets/icon/visitors.svg'
+import CircleSvg from '../../assets/icon/circle.svg'
+import HerdSvg from '../../assets/icon/herd.svg'
+import CryingSvg from '../../assets/icon/crying.svg'
+import LaughSvg from '../../assets/icon/laugh.svg'
+
+import countTo from 'vue-count-to';
 export default {
     data(){
         return {
-            circleUrl: 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png'
+            value1:'',
+            config:{
+                shape: 'roundRect'
+            },
+            
+            colors : ['#F141AF','#F85E1F', '#9830FA', '#0C99FD', '#25D9B4','#1AA2FC','#FFA500','#B8868B','#FF4500','#F0E68C'],
+            colors_two : ['#F141AF','#F85E1F', '#9830FA', '#0C99FD', '#25D9B4','#1AA2FC','#FFA500','#B8868B','#FF4500','#F0E68C', '#FF00FF','#FFC0CB'],
+            scaleData: {
+                columns: ['类目', '数量'],
+                rows: [
+                    { '类目': '报告', '数量': 1 },
+                    { '类目': '公告', '数量': 62 },
+                    { '类目': '函', '数量': 65 },
+                    { '类目': '决定', '数量': 45 },
+                    { '类目': '命令', '数量': 61 },
+                    { '类目': '批复', '数量': 130 },
+                    { '类目': '通报', '数量': 10 },
+                    { '类目': '通告', '数量': 43 },
+                    { '类目': '通知', '数量': 804 },
+                    { '类目': '意见', '数量': 114 },
+                ]
+            },
+            scaleData_two: {
+                columns: ['类目', '数量'],
+                rows: [
+                    { '类目': '安全-核安全', '数量': 397 },
+                    { '类目': '安全-社会安全', '数量': 28 },
+                    { '类目': '安全-网络安全', '数量': 35 },
+                    { '类目': '军事-军事批复', '数量': 116 },
+                    { '类目': '军事-人事任命', '数量': 9 },
+                    { '类目': '军事-战功命令', '数量': 59 },
+                    { '类目': '军事-征兵通知', '数量': 7 },
+                    { '类目': '科技-创新改革', '数量': 198 },
+                    { '类目': '科技-国防科技', '数量': 29 },
+                    { '类目': '科技-航空探月', '数量': 3 },
+                    { '类目': '科技-新能源', '数量': 40 },
+                    { '类目': '政府类型公文', '数量': 414 },
+                ]
+            },
         }
     },
     components:{
-        daiban,
-        github,
-        sort,
-        dynamic,
-        operating,
-        group,
-        Project,
-        DynamicBox,
-        Fast,
-        Colleague
+        Monitorcar,
+        Count,
+        Visitors,
+        CircleSvg,
+        countTo,
+        HerdSvg,
+        CryingSvg,
+        LaughSvg
     }
 }
 </script>
 
 <style scoped>
-.index{
+.monitor{
+    background: #F5F7F9;
+    padding: 25px;
+    box-sizing: border-box;
     width: 100%;
     min-height: 100%;
 }
-.index-head{
+.monitor-header{
+    border: 1px solid #E6E6E6;
+    background: #ffffff;
+    border-radius: 5px;
+    margin-bottom: 20px;
     width: 100%;
-    /* height: 133px; */
-    padding: 16px 32px 0 32px;
-    box-sizing: border-box;
-    background: rgba(255, 255, 255, .7);
-    border-bottom: 1px solid #dcdfe6;
 }
-.index-head-title{
+.monitor-header-two{
+    border: 1px solid #E6E6E6;
+    background: #ffffff;
+    border-radius: 5px;
+    margin-bottom: 20px;
     width: 100%;
-    height: 30px;
-    line-height: 30px;
-    font-size: 20px;
-    color: #292929;
-    margin-bottom: 16px;
+    height: 500px;
 }
-.index-head-centent-left{
+.monitor-header-three{
+    border: 1px solid #E6E6E6;
+    background: #ffffff;
+    border-radius: 5px;
+    margin-bottom: 20px;
     width: 100%;
-    height: 70px;
+    height: 600px;
+}
+.monitor-cart-name{
+    width: 100%;
+    height: 50px;
+    /* background: yellow; */
+    margin-bottom: 20px;
+    border-bottom: 1px solid #E6E6E6;
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
+}
+.monitor-cart-name-left{
+    width: 160px;
+    height: 100%;
+    /* background: blueviolet; */
+    line-height: 42px;
+    color: #5C5C5C;
+    font-size: 14px;
+    font-weight: bold;
+    display: flex;
     align-items: center;
 }
-.index-head-centent-left-text{
-    height: 56px;
+.monitor-cart-name-left-icon{
+    width: 30px;
+    height: 30px;
+    background: #F7EEFF;
+    border-radius: 2px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
 }
-.index-head-centent-left-text p:nth-child(1){
-    margin-bottom: 7px;
-    font-size: 20px;
-    color: #292929;
-    letter-spacing:0.1em;
-
+.monitor-cart-name-left-icon-s{
+    width: 20px;
+    height: 20px;
+    color: blueviolet;
+    fill: currentColor;
 }
-.index-head-centent-left-text p:nth-child(2){
-    font-size: 12px;
-    color: #999999;
-    letter-spacing:0.1em;
-}
-.index-head-centent-right{
-    width: 100%;
-    height: 70px;
+.monitor-cart-name-right{
     display: flex;
     justify-content: flex-end;
     align-items: center;
 }
-.index-head-centent-right-list{
-    height: 56px;
+.monitor-cart-name-right-list{
+    width: 60px;
+    height: 50px;
+    /* background: chartreuse; */
+    text-align: center;
+    line-height: 50px;
+    color: #515A6E;
+    font-size: 14px;
     cursor: pointer;
-    margin-left: 20px;
 }
-.index-head-centent-right-list-icon{
-    font-size: 14px;
-    display: flex;
-    margin-bottom: 5px;
-    color: #808695;
+.monitor-cart-name-right-list:hover{
+    color: #2D8CF0;
 }
-.index-head-centent-right-list-icon-is{
-    width: 14px;
-    height: 14px;
-    fill: currentColor;
-    margin-right: 5px;
-    padding: 5px;
-    border-radius: 12px;
-}
-
-.index-head-centent-right-list-text{
-    height: 28px;
-    line-height: 28px;
-    font-weight: bold;
-    text-align: right;
-    font-size: 20px;
-}
-.index-centent{
+.monitor-cart-box{
+    /* background: chocolate; */
     width: 100%;
-    min-height: 100%;
-    padding: 25px;
+    height: 100px;
+    padding: 10px 15px 0;
     box-sizing: border-box;
-   
-
-}
-
-
-.el-col {
-    border-radius: 4px;
-}
-  .grid-content {
-    border-radius: 4px;
-    min-height: 36px;
+    /* border: 1px solid #E6E6E6; */
     background: #ffffff;
-    width: 100%;
-    margin-bottom: 25px;
-  }
-.index-centent-title{
-    width: 100%;
-    height: 52px;
-    border-bottom: 1px solid #dcdfe6;
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    padding: 0 15px;
-    box-sizing: border-box;
-    justify-content:space-between;
-    font-size: 14px;
+    border-radius: 5px;
+    margin-bottom: 20px;
 }
-.index-centent-title-left{
+.monitor-cart-probability{
+    /* background: cornflowerblue; */
+    width: 100%;
+    height: 210px;
+    padding: 20px 15px 0px;
+    box-sizing: border-box;
+}
+.monitor-cart-probability-box{
+    width: 100%;
+    height: 80%;
+    /* border: 1px solid #515A6E; */
+    border-radius: 5px;
+}
+.monitor-cart-probability-name{
+    width: 100%;
+    height: 20%;
+    text-align: center;
+    line-height: 34px;
+    /* background: chartreuse; */
+    color: #515A6E;
+    font-size: 14px;
+    cursor: pointer;
+}
+.monitor-visitors{
+    width: 100%;
+    height: 400px;
+}
+.monitor-visitors-scale{
+    display: flex;
+    justify-content: space-between;
+}
+.monitor-visitors-left{
+    width: 60%;
+    height: 100%;
+}
+.monitor-visitors-right{
+    width: 40%;
+    height: 100%;
+    /* background: chocolate; */
+    padding: 20px;
+    box-sizing: border-box;
+}
+.monitor-visitors-right-list{
+    width: 100%;
+    height: 40px;
+    /* background: cyan; */
     display: flex;
     justify-content: flex-start;
-    font-size: 14px;
-    /* border-radius: 11px;
-    overflow: hidden; */
+    align-items: center;
 }
-.index-centent-title-left-icon{
-    width: 12px;
-    height: 12px;
-    font-size: 12px;
-    color: #1890FF;
-    padding: 5px;
-    background: #E6F3FE;
-    /* border-radius: 11px; */
+.monitor-visitors-right-list-icon{
+    width: 15px;
+    height: 15px;
+    color: #666666;
     fill: currentColor;
-    margin-right: 10px;
 }
-.index-centent-title-left-icontwo{
-    width: 12px;
-    height: 12px;
+.monitor-visitors-right-list-name{
+    width: 120px;
+    /* background: darkgoldenrod; */
+    height: 40px;
+    line-height: 40px;
     font-size: 12px;
-    color: #F371FA;
-    padding: 5px;
-    background: #FDF4FD;
-    /* border-radius: 11px; */
-    fill: currentColor;
-    margin-right: 10px;
-}
-.index-centent-title-left-iconthree{
-    width: 12px;
-    height: 12px;
-    font-size: 12px;
-    color: #FC1D1D;
-    padding: 5px;
-    background: #FDF4FD;
-    /* border-radius: 11px; */
-    fill: currentColor;
-    margin-right: 10px;
-}
-.index-centent-title-left-iconfour{
-    width: 12px;
-    height: 12px;
-    font-size: 12px;
-    color: #18B2FA;
-    padding: 5px;
-    background: #FDF4FD;
-    /* border-radius: 11px; */
-    fill: currentColor;
-    margin-right: 10px;
-}
-.index-centent-title-right{
-    color: #3CA0FD;
-    cursor: pointer;
-}
-.index-centent-box{
-    width: 100%;
-    padding: 15px 15px 0;
+    color: #595959;
+    padding-left: 10px;
     box-sizing: border-box;
+}
+.monitor-visitors-right-list-number{
+    flex: 1;
+    /* background: yellowgreen; */
+    height: 40px;
+    line-height: 40px;
+    font-size: 12px;
+    color: #8C8C8C;
+    padding-left: 10px;
+    box-sizing: border-box;
+    text-align: right;
+    padding-right: 15px;
+}
+.monitor-header-users{
+    width: 100%;
+    height: auto;
+    padding: 0px 10px;
+    box-sizing: border-box;
+}
+.monitor-header-users-time{
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
+    font-size: 12px;
+    color: #515A6E;
+    text-align: center;
+    margin-bottom: 10px;
+}
+.monitor-header-users-number{
+    width: 100%;
+    height: 58px;
+    text-align: center;
+    font-size: 40px;
+    line-height: 58px;
+    color: #515A6E;
+    font-weight: bold;
+}
+.monitor-header-users-message{
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    font-size: 12px;
+    color: #515A6E;
+    text-align: center;
+}
+/* 用户数 */
+.monitor-header-users-icon{
+    width: 100%;
+    height: 50px;
+    text-align: center;
+    /* background: chocolate; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.monitor-header-users-icon-s{
+    width: 36px;
+    height: 36px;
+    fill: currentColor;
+    color: #2399FA;
+}
+/* 评论 */
+.monitor-header-comment{
+    width: 100%;
+    height: auto;
+}
+.monitor-header-comment .monitor-header-comment-list:nth-last-child(1){
+    border-bottom-color: transparent;
+}
+.monitor-header-comment-list{
+    width: 100%;
+    height: 120px;
+    display: flex;
+    box-sizing: border-box;
+    border-bottom: 1px solid #E8EAEC;
+}
+.monitor-header-comment-list-li{
+    width: 33%;
+    height: 120px;
+}
+.monitor-header-comment-list-li-number{
+    font-weight: bold;
+    font-size: 30px;
+    color: #515A6E;
+    line-height: 120px;
+    text-align: center;
+}
+.monitor-header-comment-list-li-icon{
+    width: 50px;
+    height: 50px;
+    color: #FBD971;
+    fill: currentColor;
+}
+.monitor-header-comment-list-li-tag{
+    display: flex;
+    /* background: cyan; */
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.monitor-header-comment-list-li-tag-text{
+    width: 100%;
+    height: 35px;
+    text-align: center;
+    line-height: 35px;
+    color: #808695;
+    font-size: 14px;
+}
+.monitor-header-comment-list-li-percentage{
+    height: 100%;
+    line-height: 120px;
+    color: #36C17B;
+    font-size: 18px;
+    text-align: center;
+}
+.el-col-lg-18 {
+  width: 100%;
+}
+.el-col-lg-17 {
+  width: 100%;
 }
 </style>

@@ -6,8 +6,8 @@
                     <uni class="project-list-left-icon" />
                 </div>
                 <div class="project-list-right">
-                    <count-to :startVal='startVal' :endVal='47' :duration='3000'></count-to>
-                    star
+                    <count-to :startVal='startVal' :endVal='48' :duration='3000'></count-to>
+                    first
                 </div>
             </div>
         </el-col>
@@ -18,7 +18,7 @@
                 </div>
                 <div class="project-list-right">
                     <count-to :startVal='startVal' :endVal='17' :duration='3000'></count-to>
-                    star
+                    second
                 </div>
             </div>
         </el-col>
@@ -29,7 +29,7 @@
                 </div>
                 <div class="project-list-right">
                     <count-to :startVal='startVal' :endVal='10' :duration='3000'></count-to>
-                    star
+                    third
                 </div>
             </div>
         </el-col>
@@ -40,7 +40,7 @@
                 </div>
                 <div class="project-list-right">
                     <count-to :startVal='startVal' :endVal='11' :duration='3000'></count-to>
-                    star
+                    forth
                 </div>
             </div>
         </el-col>
@@ -51,7 +51,7 @@
                 </div>
                 <div class="project-list-right">
                     <count-to :startVal='startVal' :endVal='7' :duration='3000'></count-to>
-                    star
+                    fifth
                 </div>
             </div>
         </el-col>
@@ -62,7 +62,7 @@
                 </div>
                 <div class="project-list-right">
                     <count-to :startVal='startVal' :endVal='3' :duration='3000'></count-to>
-                    star
+                    sixth
                 </div>
             </div>
         </el-col>

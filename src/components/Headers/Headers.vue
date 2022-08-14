@@ -8,9 +8,6 @@
         </div>
         <div class="headers-right">
             <div class="headers-right-left">
-                <el-tooltip class="item" effect="dark" content="源码" placement="bottom">
-                    <github2 class="headers-right-left-githubIcon" @click="goGithub" />
-                </el-tooltip>
                 <el-tooltip class="item" effect="dark" :content="isFullscreen ? '取消全屏' : '全屏'" placement="bottom">
                     <!-- <i :class="isFullscreen ? 'el-icon-full-screen head-screen-news' : 'el-icon-rank head-screen'" @click="buttoncli"></i> -->
                     <reduction v-if="isFullscreen" class="headers-right-left-screenIcon" @click="buttoncli" />
@@ -38,7 +35,6 @@
                         admin<i class="el-icon-arrow-down el-icon--right"></i>
                     </span>
                     <el-dropdown-menu slot="dropdown">
-                        <el-dropdown-item command="github">项目仓库</el-dropdown-item>
                         <el-dropdown-item divided command="quit">退出登录</el-dropdown-item>
                     </el-dropdown-menu>
                 </el-dropdown>
@@ -171,19 +167,8 @@ export default {
           
             this.$store.dispatch('user/resetToken')
         },
-        // 展开通知
-        dropShowBtn(){
-            clearTimeout(this.setTime)
-            this.dropShow = true
-        },
-        // 收起通知
-        dropHideBtn(){
-            let This = this
-            
-            this.setTime = setTimeout(function(){
-                This.dropShow = false;
-            },1000)
-        },
+
+ 
         // 鼠标移入 通知栏
         dropdownBtn(){
             clearTimeout(this.setTime)
@@ -193,10 +178,6 @@ export default {
         targetThemeIndex(index){
             this.$emit('targetThemeIndex',index)
         },
-        // 去github
-        goGithub(){
-            window.open('https://github.com/cgq001/admin-menu/tree/2.0')
-        }
     },
     mounted() {
         // 浏览器窗口改变事件

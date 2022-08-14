@@ -1,17 +1,20 @@
 module.exports = {
-    publicPath: "/admin-vue/",
     // 关闭线上源码
-    productionSourceMap: false,
-    chainWebpack: (config) => {
-        const svgRule = config.module.rule('svg');
-     
-        svgRule.uses.clear();
-     
-        svgRule
-          .use('babel-loader')
-          .loader('babel-loader')
-          .end()
-          .use('vue-svg-loader')
-          .loader('vue-svg-loader');
-      }
+   
+      devServer: {
+       disableHostCheck:true,
+       port:5000,
+       host:'0.0.0.0',
+       https:false,
+       open:false,
+      //  proxy:{
+      //   'api':{
+      //     target: 'http://10.160.181.146:5000',
+      //     changeOrigin: true,
+      //     pathRewrite: {
+      //         '^/api': ""
+      //     }
+      //   }
+      //  }
+    },
 }

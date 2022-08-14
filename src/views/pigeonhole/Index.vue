@@ -1,24 +1,35 @@
 <template>
     <div class="goodsindex">
+        <!-- 上传文件 -->
+        <el-row :gutter="20" class="keycode-Info">
+            <el-col :xs="6" :sm="4" :md="3" :lg="2" :xl="2" :offset="1">
+                <el-button type="primary" class="keycode-Info-li" size="small" @click="keyCodeShow = true">上传文件</el-button>
+            </el-col>
+        </el-row>
+        <!-- 添加或编辑关键词 -->
+        <el-dialog title="添加关键词" :visible.sync="keyCodeShow">
+            <el-form :model="keyCodeForm" :rules="keyCodeRules" ref="keyCodeForm">
+                <el-form-item label="名称" :label-width="keyCodeWidth" prop="name">
+                    <el-input v-model="keyCodeForm.name" autocomplete="off" placeholder="请输入文件名称"></el-input>
+                </el-form-item>
+                <el-upload class="upload" action="#" drag multiple :headers="headers" :auto-upload="false"
+				 :file-list="fileList" :on-change="handleChange">
+					<i class="el-icon-upload"></i>
+					<div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+				</el-upload>
+            </el-form>
+            <div slot="footer" class="dialog-footer">
+                <el-button @click="keyCodeSubmit('keyCodeForm')" type="primary">上 传</el-button>
+            </div>
+        </el-dialog>
         <!-- 搜索条件 -->
         <el-row :gutter="20" class="goodsindex-queryInfo">
             <!-- 商品名称搜索 -->
             <el-col :xs="8" :sm="6" :md="6" :lg="4" :xl="4">
-                <el-input class="goodsindex-queryInfo-li" v-model="queryInfo.name" clearable size="small" placeholder="请输入产品名称"></el-input>
-            </el-col>
-            <!-- 商品分类搜索 -->
-            <el-col :xs="8" :sm="6" :md="6" :lg="4" :xl="4">
-                 <el-select  class="goodsindex-queryInfo-li" v-model="queryInfo.type" size="small" clearable placeholder="请选择产品分类">
-                    <el-option
-                    v-for="item in options"
-                    :key="item.value"
-                    :label="item.value"
-                    :value="item.value">
-                    </el-option>
-                </el-select>
+                <el-input class="goodsindex-queryInfo-li-one" v-model="queryInfo.name" clearable size="small" placeholder="请输入公文名称"></el-input>
             </el-col>
             <el-col :xs="6" :sm="4" :md="3" :lg="2" :xl="2">
-                <el-button type="primary" class="goodsindex-queryInfo-li" size="small" >搜索</el-button>
+                <el-button type="primary" class="goodsindex-queryInfo-li-two" size="small" >搜索</el-button>
             </el-col>
             
         </el-row>
@@ -27,7 +38,6 @@
             <el-col :span="24">
                 <el-table
                     :data="tableData"
-                    border
                     size='small'
                     style="width: 100%">
                     <el-table-column
@@ -41,12 +51,12 @@
                     width="180">
                     </el-table-column>
                     <el-table-column
-                    prop="name"
+                    prop="type"
                     label="产品图片"
                     width="120">
                     </el-table-column>
                     <el-table-column
-                    prop="name"
+                    prop="content"
                     label="原件"
                     width="80">
                     </el-table-column>
@@ -111,6 +121,10 @@
 </template>
 
 <script>
+import axios from 'axios' 
+import  qs from "qs"
+axios.defaults.headers.post["Content-Type"] ="application/x-www-form-urlencoded;charset=UTF-8";
+
 export default {
     data(){
         return {
@@ -120,26 +134,61 @@ export default {
                 page: 1 ,
                 pageSize: 10
             },
-            options: [
-                {
-                    label: 1,
-                    value: '安心蔬菜'
-                },
-                {
-                    label: 2,
-                    value: '新鲜牛奶'
-                }
+            tableData: [
             ],
-            tableData: []
+             queryParams:{    
+                    task_id:null,  
+                    batch_size:null,    
+                    batch_num:null
+                },
+            keyCodeShow: false,
+            keyCodeForm:{
+                name: '',
+                remarks: ''
+            },
+            keyCodeRules:{
+                name:[
+                    { required: true, message: '请输入文件名称', trigger: 'blur' },
+                    { min: 1, max: 5, message: '长度在 1 到 5 个字符', trigger: 'blur' }
+                ]
+            },
+            keyCodeWidth: '120px'
         }
     },
+    created(){    
+        this.getAllList(),
+        handleSizeChange()
+    }, 
     methods:{
         handleSizeChange(){
-
+            alert("my")
         },
-        handleCurrentChange(){
+        getAllList(){
+            const params = {...this.queryParams};
+            params.task_id = 100;
+            params.batch_size = "1";
+            params.batch_num = "5";
+            axios.post("http://10.160.181.146:5000/classification/result",params).then(result=>{
+                console.log(result.data.message);
+                this.tableData = result.data.data;
+            }
+            )
+            // axios.get("http://10.160.181.146:5000/classification/status",qs.stringify({
+            //     task_id:"100",
+            // })).then(result=>{
+            //     alert(result.data);
+            //     this.tableData = result.data;
+            // }
+            // )
+            // axios.post("http://10.160.181.146:5000/classification",qs.stringify({
+            //     file_path:"/home/app/test_data/test_data_10.zip",
+            //     task_id:"103",
+            // })).then(result=>{
+            //     alert(result.message);
+            // }
+            // )
 
-        },
+        }
     }
 }
 </script>
@@ -153,11 +202,19 @@ export default {
 }
 /* 搜索 */
 .goodsindex-queryInfo{
-    margin-bottom: 10px;
+    margin-bottom: 20px;
+    margin-left: 50%;
 }
-.goodsindex-queryInfo-li{
+.goodsindex-queryInfo-li-one{
     width: 100%;
     height: auto;
+    margin-left: 200%;
+    
+}
+.goodsindex-queryInfo-li-two{
+    width: 100%;
+    height: auto;
+    margin-left: 470%;
 }
 /* 列表 */
 .goodsindex-list{
@@ -171,5 +228,16 @@ export default {
     height: auto;
     display: flex;
     justify-content: flex-end;
+}
+.keycode-Info{
+    width: 100%;
+    margin-bottom: 15px;
+}
+.keycode-Info-li{
+    margin-left: 1290%;
+    margin-top: 15px;
+}
+.upload {
+    margin-left: 28%;
 }
 </style>
