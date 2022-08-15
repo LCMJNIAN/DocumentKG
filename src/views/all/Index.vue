@@ -1,27 +1,12 @@
 <template>
     <div class="goodsindex">
         <!-- 上传文件 -->
-        <el-row :gutter="20" class="keycode-Info">
-            <el-col :xs="6" :sm="4" :md="3" :lg="2" :xl="2" :offset="1">
-                <el-button type="primary" class="keycode-Info-li" size="small" @click="keyCodeShow = true">上传文件</el-button>
-            </el-col>
-        </el-row>
-        <!-- 添加或编辑关键词 -->
-        <el-dialog title="添加关键词" :visible.sync="keyCodeShow">
-            <el-form :model="keyCodeForm" :rules="keyCodeRules" ref="keyCodeForm">
-                <el-form-item label="名称" :label-width="keyCodeWidth" prop="name">
-                    <el-input v-model="keyCodeForm.name" autocomplete="off" placeholder="请输入文件名称"></el-input>
-                </el-form-item>
-                <el-upload class="upload" action="#" drag multiple :headers="headers" :auto-upload="false"
-				 :file-list="fileList" :on-change="handleChange">
-					<i class="el-icon-upload"></i>
-					<div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
-				</el-upload>
-            </el-form>
-            <div slot="footer" class="dialog-footer">
-                <el-button @click="keyCodeSubmit('keyCodeForm')" type="primary">上 传</el-button>
-            </div>
-        </el-dialog>
+      <el-upload class="upload-demo" action="http://10.160.181.146:5000/upload" :on-preview="handlePreview"
+      	:on-remove="handleRemove" :before-remove="beforeRemove" multiple :limit="3" :on-exceed="handleExceed"
+      	accept=".zip,.txt" name="file">
+      	<el-button size="small" type="primary">点击上传</el-button>
+      	<div slot="tip" class="el-upload__tip">只能上传zip/txt文件</div>
+      </el-upload>
         <!-- 搜索条件 -->
         <el-row :gutter="20" class="goodsindex-queryInfo">
             <!-- 商品名称搜索 -->
@@ -153,6 +138,16 @@ export default {
         handleCurrentChange(){
 
         },
+		submitUpload() {
+			this.$refs.upload.submit();
+		},
+		handleRemove(file, fileList) {
+			console.log(file, fileList);
+		},
+		handlePreview(file) {
+			console.log(file);
+		},
+		
     }
 }
 </script>
@@ -201,7 +196,7 @@ export default {
     margin-left: 1290%;
     margin-top: 15px;
 }
-.upload {
-    margin-left: 28%;
-}
+.upload-demo {
+		float: right;
+	}
 </style>
